@@ -1,0 +1,4 @@
+- uv introduction + installation https://docs.astral.sh/uv/
+- `uv sync`
+- server:  `uv run server.py`
+- client testing: `uv run test_mcp_client.py`
