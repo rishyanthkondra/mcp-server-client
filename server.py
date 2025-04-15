@@ -6,7 +6,7 @@ from mcp.server.fastmcp import FastMCP
 app = FastAPI()
 
 # Create an MCP server and link it to the FastAPI app
-server = FastMCP('get_user_data')
+server = FastMCP('test_app')
 
 @server.tool()
 def get_weather(location: str) -> str:
