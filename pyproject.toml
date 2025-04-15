@@ -1,0 +1,12 @@
+[project]
+name = "test-mcp-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.115.12",
+    "mcp[cli]>=1.6.0",
+    "pydantic>=2.11.3",
+    "requests>=2.32.3",
+]
