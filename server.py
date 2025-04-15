@@ -1,27 +1,12 @@
 from fastapi import FastAPI
 from models import User
 from mcp.server.fastmcp import FastMCP
-from fastapi.responses import StreamingResponse
-import asyncio
-import json
 
 # Create a FastAPI app
 app = FastAPI()
 
 # Create an MCP server and link it to the FastAPI app
 server = FastMCP('get_user_data')
-
-# Event generator to send SSE events periodically
-async def event_generator():
-    # You can add any logic to send events based on different conditions
-    while True:
-        await asyncio.sleep(5)  # Emit event every 5 seconds for demonstration
-        yield f"event: message\ndata: {{'status': 'Event sent from server!'}}\n\n"
-
-# # Create a route to stream events via SSE
-# @app.get("/mcp/sse")
-# async def sse_stream():
-#     return StreamingResponse(event_generator(), media_type="text/event-stream")
 
 @server.tool()
 def get_weather(location: str) -> str:
@@ -44,7 +29,7 @@ def weather_data() -> str:
     '''
 
 
-@server.resource('user_data://{user_id}')
+@server.resource('resource://user_data/{user_id}')
 def get_user(user_id: str) -> str:
     '''Get user information, given a user_id'''
     user_id = int(user_id)
@@ -54,12 +39,6 @@ def get_user(user_id: str) -> str:
         group_id='google.com',
         location='Hyderabad' if user_id < 2 else 'Chennai'
     ).model_dump_json()
-
-# @app.post("/messages/")
-# async def handle_message(session_id: str):
-#     print(f"Received message for session_id: {session_id}")
-#     # Optionally you can return relevant information about the message here
-#     return {"status": "Message received for session", "session_id": session_id}
 
 # Mount the server's SSE API on /mcp
 app.mount('/', server.sse_app())
