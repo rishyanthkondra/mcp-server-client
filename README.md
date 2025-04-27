@@ -2,3 +2,4 @@
 - `uv sync`
 - server:  `uv run server.py`
 - client testing: `uv run test_mcp_client.py`
+- Synchronous client testing: `uv run test_mcp_client_sync.py`
