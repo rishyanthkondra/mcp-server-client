@@ -45,5 +45,7 @@ app.mount('/', server.sse_app())
 
 # Start the server when this file is run directly
 if __name__ == "__main__":
+    import logging
+    logging.basicConfig(level=logging.DEBUG)
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
